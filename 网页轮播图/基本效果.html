@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery基本效果</title>
+    <style  type="text/css">
+     .header{
+         position:relative;
+         width:400px;
+         height: 200px;
+         border:10px solid gray ;
+     }
+     button{
+         padding: 0;
+         margin:15px  66px;
+     }
+     .header img{
+         
+         width: 100%;
+         height: 100%;
+     }
+     #click #show{
+         position:absolute;
+         left: 20px;
+         top:35px;
+        
+     }
+    
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="../../../images/1.jpeg">
+       
+    </div>
+    <button id="click">点击消失</button>
+    <button id="show">点击显示</button>
+    <button id="shact">点击</button>
+    <script src="../../../js/jquery-3.2.1.min.js"></script>
+    <script>
+     $(document).ready(function(){
+          
+           $("#click").click(function(){
+               $(".header").hide(3000,function(){
+                   alert("我被隐藏了");
+               });
+               
+           })
+
+           $("#show").click(function(){
+               $(".header").show(3000,function(){
+                   alert("我被显示了");
+               });
+               
+           })
+           $("#shact").click(function(){
+               $(".header").toggle(3000,function(){
+                 
+               });
+               
+           })
+    
+
+
+
+
+     })
+    
+    
+    </script>
+</body>
+</html>

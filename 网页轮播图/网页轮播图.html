@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style type="text/css">
+      .play-box{
+          margin:100px auto;
+          width:520px;
+          height:280px;
+          border:1px solid #ccc;
+          position: relative;
+      }
+        .play-box img{
+            width: 520px;
+            height: 280px;
+        }
+        .play-box a{
+            opacity: 0;
+            height: 0px;
+            display: block;
+            overflow: hidden;
+            transition:opacity .5s;
+        }
+        .play-box a.current{
+            opacity: 1;
+            height:auto;
+        }
+        body{
+            margin:0;
+            padding:0;
+            font:16px "Microsoft YaHei",sans-serif;
+        }
+        ul{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        #iconList {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            margin-left: -45px;
+        }
+        #iconList li{
+            font-size: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: auto 5px;
+            background-color: #fff;
+            float: left;
+            cursor:pointer;
+        }
+        #iconList li.current{
+            background-color: red;
+        }
+        .slidebar{
+            display: none;
+            position: absolute;
+            top:50%;
+            width: 30px;
+            height: 50px;
+            color: #fff;
+            line-height: 50px;
+            text-align: center;
+            background-color: #000;
+            margin-top: -25px;
+            font-family:simsun;
+            opacity: 0.6;
+            filter:alpha(opacity=60);
+            cursor: pointer;
+            
+        }
+        .slidebar-left{
+            left: 0;
+        }
+
+        .slidebar-right{
+            right: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="playbox" class="play-box">
+          <div id="imgList">
+              <a href="http://www.taobao.com" class="current"><img src="../../../images/3.jpeg" alt=""></a>
+              <a href="http://www.taobao.com"><img src="../../../images/1.jpeg" alt=""></a>
+              <a href="http://www.taobao.com"><img src="../../../images/2.jpeg" alt=""></a>
+              <a href="http://www.taobao.com"><img src="../../../images/3.jpeg" alt=""></a>
+              <a href="http://www.taobao.com"><img src="../../../images/4.jpeg" alt=""></a>
+        </div>
+        <div id="iconList">
+            <ul>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div>
+        <div class="slidebar slidebar-left"><</div>
+        <div class="slidebar slidebar-right">></div>
+    </div>
+
+
+    <script src="../../../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var speed = 3000;
+            var m = 1;
+            var time =  setInterval(runPlay,speed);
+            function runPlay() {
+                if(m>4){
+                    m = 0;
+
+                }
+               controlplay(m);
+                m++;
+
+            }
+
+            function controlplay(n) {
+                $("#imgList a").removeClass("current").eq(n).addClass("current");
+                $("#iconList li").removeClass("current").eq(n).addClass("current");
+            }
+            $("#playbox").mouseenter(function () {
+                clearInterval(time);
+                $(".slidebar").fadeIn(300);
+            }).mouseleave(function () {
+                time = setInterval(runPlay,speed);
+                $(".slidebar").fadeOut(300);
+            });
+            $("#iconList li").click(function () {
+                controlplay($(this).index());
+                m = $(this).index() + 1;
+            }).hover(function () {
+                return false;
+            });
+            $(".slidebar-right").click(function () {
+                if(m > 4){
+                    m = 0;
+                }
+                controlplay(m);
+                m ++;
+            });
+            $(".slidebar-left").click(function () {
+                m -=2;
+                if (m < 0){
+                    m = 4;
+                }
+                controlplay(m);
+                m ++ ;
+            })
+        })
+    </script>
+</body>
+</html>
